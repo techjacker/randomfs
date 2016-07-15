@@ -59,12 +59,12 @@ func TestrandomDataGenerator(t *testing.T) {
 
 func TestRandomString(t *testing.T) {
 	r := randomStringGenerator{20}
-	randBytes := r.randomBytes()
+	randBytes := r.randBytes()
 	if bytes.Equal(make([]byte, r.length), randBytes) {
-		t.Errorf("randomBytes()\nExpected: [% x]\nGot: [% x]", randBytes, make([]byte, r.length))
+		t.Errorf("randBytes()\nExpected: [% x]\nGot: [% x]", randBytes, make([]byte, r.length))
 	}
 
-	randStr := r.randomString()
+	randStr := r.randString()
 	if len(randStr) != r.length {
 		t.Errorf("randStr() length\nExpected: %d\nGot: %d", r.length, len(randStr))
 	}

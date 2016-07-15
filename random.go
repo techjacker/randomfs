@@ -23,9 +23,9 @@ func (r randomDataGenerator) Run() []string {
 		if (i+1)%r.repeatFreq == 0 {
 			d[i] = r.repeatText
 		} else if (i+1)%r.previousContentsFreq == 0 {
-			d[i] = r.concatPreviousElements(d)
+			d[i] = r.concatPrev(d)
 		} else {
-			d[i] = rs.randomString()
+			d[i] = rs.randString()
 		}
 		if len(d[i]) > r.maxTextLen {
 			d[i] = d[i][:r.maxTextLen]
@@ -34,7 +34,7 @@ func (r randomDataGenerator) Run() []string {
 	return d
 }
 
-func (r randomDataGenerator) concatPreviousElements(data []string) string {
+func (r randomDataGenerator) concatPrev(data []string) string {
 	var s string
 	for i := 0; i < len(data); i++ {
 		s += data[i]
@@ -46,15 +46,12 @@ type randomStringGenerator struct {
 	length int
 }
 
-func (r randomStringGenerator) randomString() string {
-	return string(r.randomBytes())[:r.length]
+func (r randomStringGenerator) randString() string {
+	return string(r.randBytes())[:r.length]
 }
 
-func (r randomStringGenerator) randomBytes() []byte {
+func (r randomStringGenerator) randBytes() []byte {
 	b := make([]byte, r.length)
-	_, err := rand.Read(b)
-	if err != nil {
-		panic("error creating random bytes")
-	}
+	rand.Read(b)
 	return b
 }
